@@ -7,7 +7,7 @@ LABEL dscription="Zookeeper and Kafka Base Image"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV SCALA_VERSION 2.11
-ENV KAFKA_VERSION 0.10.0.0
+ENV KAFKA_VERSION 0.9.0.1
 ENV KAFKA_HOME /opt/kafka
 
 # Update the base image and make sure all sources and packages are up to date.
