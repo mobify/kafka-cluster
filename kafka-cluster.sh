@@ -3,15 +3,17 @@
 cmd=${1:-help}
 script=$(basename $0)
 projectname=kafkacluster
-kafka_image=spiside/kafka-cluster
+kafka_image=mobify/kafka-cluster
 
 if [ "$cmd" == "help" ]; then
     cat <<EOF
 $script - A helpful CLI for wrapping commands
 
+    build
+        Build image
     bootstrap
         Starts up the kafka cluster using docker-compose, scales up to two
-        kafka nodes, and creates a topic 'test'. 
+        kafka nodes, and creates a topic 'test'.
     down
         Stops the running containers and removes the stopped containers.
     logs [-f, --follow]
@@ -35,9 +37,13 @@ docker_compose() {
 }
 
 case $cmd in
+    build)
+        docker build -t $kafka_image .
+        ;;
+
     bootstrap)
         # Check that the image exists and, if not, pull it.
-        docker inspect spiside/kafka-cluster &> /dev/null
+        docker inspect $kafka_image &> /dev/null
         if [ $? -ne 0 ]; then
             echo "Docker image doesn't exist, pulling..."
             docker pull $kafka_image
